@@ -19,11 +19,12 @@ ExpandV::usage="ExpandV \:80fd\:5c55\:5f00\:652f\:4ed8\:77e9\:9635";
 ExpandV[e__] := Block[
 	{eval, V},
 	eval[i_, j_] := Which[
+		i>=5>j,{1,0},
 		j == i, {1 / 2, 1 / 2},
-		j > i, {1 - V[i, j], V[i, j]},
+		j > i, {1 - V[j, i], V[j, i]},
 		True, {V[i, j], 1 - V[i, j]}
 	];
-	Return[e /. V -> eval]
+	Return[e /. {V -> eval}]
 ];
 getAction[V[i_,j_]]:=Outer[List,getAction[i],getAction[j]]
 getAction[energy_Integer] := Block[
@@ -43,7 +44,7 @@ getAction[energy_Integer] := Block[
 (*State Transition*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Definition  *)
 
 
